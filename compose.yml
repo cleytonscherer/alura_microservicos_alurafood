@@ -2,13 +2,50 @@ services:
   mysql:
     image: 'mysql:8.0.39'
     environment:
-      - 'MYSQL_DATABASE=alurafood-pagamento'
+      - 'MYSQL_DATABASE=alurafood_pagamento'
+      - 'MYSQL_USER=alurafood'
       - 'MYSQL_PASSWORD=alurafood123'
       - 'MYSQL_ROOT_PASSWORD=root'
-      - 'MYSQL_USER=alurafood'
     ports:
       - '3306:3306'
     volumes:
       - 'mysql_data:/var/lib/mysql'
+  postgres:
+    image: 'postgres:14'
+    environment:
+      - 'POSTGRES_DB=alurafood_pedido'
+      - 'POSTGRES_USER=alurafood'
+      - 'POSTGRES_PASSWORD=alurafood123'
+      - 'PGDATA=/var/lib/postgresql/data'
+    volumes:
+    - 'postgres_data:/var/lib/postgresql/data'
+    ports:
+      - '5432:5432'
 volumes:
   mysql_data:
+  postgres_data:
+
+#  mysql-pagamento:
+#    image: 'mysql:8.0.39'
+#    environment:
+#      - 'MYSQL_DATABASE=alurafood-pagamento'
+#      - 'MYSQL_PASSWORD=alurafood123'
+#      - 'MYSQL_ROOT_PASSWORD=root'
+#      - 'MYSQL_USER=alurafood'
+#    ports:
+#      - '3306:3306'
+#    volumes:
+#      - 'mysql_data:/var/lib/mysql'
+
+#  mysql-pedido:
+#    image: 'mysql:8.0.39'
+#    environment:
+#      - 'MYSQL_DATABASE=alurafood-pedido'
+#      - 'MYSQL_PASSWORD=alurafood123'
+#      - 'MYSQL_ROOT_PASSWORD=root'
+#      - 'MYSQL_USER=alurafood'
+#    ports:
+#      - '3307:3306'
+#    volumes:
+#      - 'mysql_data:/var/lib/mysql'
+

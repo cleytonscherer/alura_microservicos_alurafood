@@ -1,9 +1,9 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="ms-pagamentos" type="Application" factoryName="Application">
+  <configuration default="false" name="ms-pedidos" type="Application" factoryName="Application">
     <option name="ALTERNATIVE_JRE_PATH" value="21" />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-    <option name="MAIN_CLASS_NAME" value="br.com.alurafood.pagamentos.PagamentosApplication" />
-    <module name="pagamentos" />
+    <option name="MAIN_CLASS_NAME" value="br.com.alurafood.pedidos.PedidosApplication" />
+    <module name="pedidos" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
