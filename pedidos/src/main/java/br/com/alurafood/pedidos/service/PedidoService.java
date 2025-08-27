@@ -46,6 +46,8 @@ public class PedidoService {
         pedido.getItens().forEach(item -> item.setPedido(pedido));
         Pedido salvo = repository.save(pedido);
 
+//        System.out.println(pedido);
+
 //        return modelMapper.map(pedido, PedidoDto.class);
         return new PedidoDto(pedido);
     }

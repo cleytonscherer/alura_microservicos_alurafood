@@ -34,9 +34,14 @@ public class PedidoController {
 
         @PostMapping()
         public ResponseEntity<PedidoDto> realizaPedido(@RequestBody @Valid PedidoDto dto, UriComponentsBuilder uriBuilder) {
+
+//            System.out.println("realizaPedido(" + dto + ")");
+
             PedidoDto pedidoRealizado = service.criarPedido(dto);
 
             URI endereco = uriBuilder.path("/pedidos/{id}").buildAndExpand(pedidoRealizado.getId()).toUri();
+
+            System.out.println(pedidoRealizado);
 
             return ResponseEntity.created(endereco).body(pedidoRealizado);
 

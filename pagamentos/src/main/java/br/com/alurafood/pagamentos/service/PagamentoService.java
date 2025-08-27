@@ -35,9 +35,15 @@ public class PagamentoService {
     }
 
     public PagamentoDto criarPagamento(PagamentoDto dto) {
+
+        System.out.println("criarPagamento(" + dto + ")");
+
         Pagamento pagamento = new Pagamento(dto);
         pagamento.setStatus(StatusPagamento.CRIADO);
         repository.save(pagamento);
+
+        System.out.println(pagamento);
+
         return new PagamentoDto(pagamento);
     }
 
