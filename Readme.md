@@ -7,3 +7,11 @@
 docker run -e MYSQL_DATABASE=alurafood_pagamento -e MYSQL_PASSWORD=alurafood123 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_USER=alurafood -p 3306:3306 -d mysql:8.0.39
 
 docker run -e POSTGRES_DB=alurafood_pedido -e POSTGRES_USER=alurafood -e POSTGRES_PASSWORD=alurafood123 -e PGDATA=/var/lib/postgresql/data -p 5432:5432 -d postgres:14
+
+# latest RabbitMQ 3.13.17
+docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.13.7-management
+
+# RabbiqMQ Management
+# user: guest
+# password: guest
+http://localhost:15672/

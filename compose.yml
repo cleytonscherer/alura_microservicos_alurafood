@@ -18,12 +18,32 @@ services:
       - 'POSTGRES_PASSWORD=alurafood123'
       - 'PGDATA=/var/lib/postgresql/data'
     volumes:
-    - 'postgres_data:/var/lib/postgresql/data'
+      - 'postgres_data:/var/lib/postgresql/data'
     ports:
       - '5432:5432'
+  rabbitmq:
+    image: 'rabbitmq:3.13.7-management'
+    container_name: 'rabbitmq'
+    hostname: 'rabbitmq' # Sets the container's hostname
+    restart: 'always'
+#    environment:
+#      - 'RABBITMQ_DEFAULT_USER=admin' # Sets the default RabbitMQ username
+#      - 'RABBITMQ_DEFAULT_PASS=adminadmin' # Sets the default RabbitMQ password (change for production)
+    ports:
+      - '5672:5672' # Maps the AMQP port (for client connections)
+      - '15672:15672' # Maps the management UI port (for web interface access)
+    volumes:
+      - 'rabbitmq_data:/var/lib/rabbitmq' # Persists RabbitMQ data to a local directory
+#      - "./data:/var/lib/rabbitmq" # Persists RabbitMQ data to a local directory
+#    healthcheck: # Defines a health check to ensure RabbitMQ is running
+#      test: [ "CMD", "rabbitmq-diagnostics", "-q", "ping" ]
+#      interval: 30s
+#      timeout: 30s
+#      retries: 3
 volumes:
   mysql_data:
   postgres_data:
+  rabbitmq_data:
 
 #  mysql-pagamento:
 #    image: 'mysql:8.0.39'
