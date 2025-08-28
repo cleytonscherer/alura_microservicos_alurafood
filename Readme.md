@@ -2,6 +2,7 @@
 2) Seja paciente, o banco de dados mysql demora para subir
 3) Para visualizar as conexões, usar http://localhost:8081/
 4) Para corrigir o erro de login do mysql via docker: https://stackoverflow.com/questions/76749414/access-denied-for-user-when-creating-mysql-database-with-docker
+5) Para adicionar novo status na tabela pagamentos: ALTER TABLE pagamentos  MODIFY COLUMN status ENUM('CANCELADO','CONFIRMADO','CONFIRMADO_SEM_INTEGRACAO','CRIADO')
 
 docker run -e MYSQL_DATABASE=alurafood_pagamento -e MYSQL_PASSWORD=alurafood123 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_USER=alurafood -p 3306:3306 -d mysql:8.0.39
 

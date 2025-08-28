@@ -45,6 +45,10 @@ public class Pedido {
         this.itens = dto.getItens();
     }
 
+    public Pedido(Long pedidoId) {
+        this.id = pedidoId;
+    }
+
     public Long getId() {
         return id;
     }

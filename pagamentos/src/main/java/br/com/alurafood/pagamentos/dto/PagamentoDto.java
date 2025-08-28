@@ -1,5 +1,6 @@
 package br.com.alurafood.pagamentos.dto;
 
+import br.com.alurafood.pagamentos.model.ItemDoPedido;
 import br.com.alurafood.pagamentos.model.Pagamento;
 import br.com.alurafood.pagamentos.model.StatusPagamento;
 import jakarta.persistence.EnumType;
@@ -10,6 +11,7 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public record PagamentoDto(
         Long    id,
@@ -42,7 +44,9 @@ public record PagamentoDto(
         Long    pedidoId,
 
         @NotNull
-        Long    formaDePagamentoId
+        Long    formaDePagamentoId,
+
+        List<ItemDoPedido> itens
 ) {
 
         public PagamentoDto(Pagamento pagamento) {
@@ -54,7 +58,8 @@ public record PagamentoDto(
                         pagamento.getCodigoVerificador(),
                         pagamento.getStatus(),
                         pagamento.getPedidoId(),
-                        pagamento.getFormaDePagamentoId()
+                        pagamento.getFormaDePagamentoId(),
+                        pagamento.getItens()
                 );
         }
 }

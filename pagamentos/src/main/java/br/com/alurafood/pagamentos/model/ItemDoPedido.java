@@ -1,46 +1,28 @@
-package br.com.alurafood.pedidos.model;
+package br.com.alurafood.pagamentos.model;
 
-import br.com.alurafood.pedidos.dto.ItemDoPedidoDto;
-import br.com.alurafood.pedidos.dto.PedidoDto;
-import jakarta.persistence.*;
-
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-
-
-@Entity
-@Table(name = "item_do_pedido")
 public class ItemDoPedido {
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-
-    @NotNull
-    @Positive
     private Integer quantidade;
-
     private String descricao;
-
-    @ManyToOne(optional=false)
     private Pedido pedido;
 
     public ItemDoPedido() {
     }
 
-    public ItemDoPedido(Long id, @NotNull Integer quantidade, String descricao, Pedido pedido) {
+    public ItemDoPedido(Long id, Integer quantidade, String descricao, Pedido pedido) {
         this.id = id;
         this.quantidade = quantidade;
         this.descricao = descricao;
         this.pedido = pedido;
     }
 
-    public ItemDoPedido(ItemDoPedidoDto itemDto) {
-        this.id = itemDto.getId();
-        this.quantidade = itemDto.getQuantidade();
-        this.descricao = itemDto.getDescricao();
-        this.pedido = new Pedido(itemDto.getPedido_id());
-    }
+//    public ItemDoPedido(ItemDoPedidoDto itemDto) {
+//        this.id = itemDto.getId();
+//        this.quantidade = itemDto.getQuantidade();
+//        this.descricao = itemDto.getDescricao();
+////        this.pedido = itemDto.
+//    }
 
     public Long getId() {
         return id;
@@ -50,11 +32,11 @@ public class ItemDoPedido {
         this.id = id;
     }
 
-    public @NotNull Integer getQuantidade() {
+    public Integer getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(@NotNull Integer quantidade) {
+    public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
     }
 

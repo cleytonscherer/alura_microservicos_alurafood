@@ -1,36 +1,32 @@
-package br.com.alurafood.pedidos.dto;
-
-import br.com.alurafood.pedidos.model.ItemDoPedido;
-import br.com.alurafood.pedidos.model.Pedido;
-import br.com.alurafood.pedidos.model.StatusPedido;
+package br.com.alurafood.pagamentos.model;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PedidoDto {
+public class Pedido {
 
     private Long id;
     private LocalDateTime dataHora;
     private StatusPedido status;
-    private List<ItemDoPedidoDto> itensDto = new ArrayList<>();
+    private List<ItemDoPedido> itens = new ArrayList<>();
 
-    public PedidoDto() {
+    public Pedido() {
     }
 
-    public PedidoDto(Long id, LocalDateTime dataHora, StatusPedido status, List<ItemDoPedidoDto> itensDto) {
+    public Pedido(Long id, LocalDateTime dataHora, StatusPedido status, List<ItemDoPedido> itens) {
         this.id = id;
         this.dataHora = dataHora;
         this.status = status;
-        this.itensDto = itensDto;
+        this.itens = itens;
     }
 
-    public PedidoDto(Pedido pedido) {
-        this.id = pedido.getId();
-        this.dataHora = pedido.getDataHora();
-        this.status = pedido.getStatus();
-        this.itensDto = pedido.getItensDto();
-    }
+//    public Pedido(PedidoDto dto) {
+//        this.id = dto.getId();
+//        this.dataHora = dto.getDataHora();
+//        this.status = dto.getStatus();
+//        this.itens = dto.getItens();
+//    }
 
     public Long getId() {
         return id;
@@ -56,28 +52,26 @@ public class PedidoDto {
         this.status = status;
     }
 
-    public List<ItemDoPedidoDto> getItensDto() {
-        return itensDto;
-    }
-
     public List<ItemDoPedido> getItens() {
-        return itensDto.stream().map(i -> new ItemDoPedido(i)).toList();
+        return itens;
     }
 
-//    public void setItensDto(List<ItemDoPedidoDto> itensDto) {
-//        this.itensDto = itensDto;
+//    public List<ItemDoPedidoDto> getItensDto() {
+//        return itens.stream().map(ItemDoPedidoDto::new).toList();
 //    }
+
+    public void setItens(List<ItemDoPedido> itens) {
+        this.itens = itens;
+    }
 
     @Override
     public String toString() {
-        return "PedidoDto" +
+        return "Pedido" +
                 "\n{" +
                 "\n\tid=" + id +
                 ",\n\tdataHora=" + dataHora +
                 ",\n\tstatus=" + status +
-                ",\n\titensDto=" + itensDto +
+                ",\n\titens=" + itens +
                 "\n}";
     }
-
-
 }

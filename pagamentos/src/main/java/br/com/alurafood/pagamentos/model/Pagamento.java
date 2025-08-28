@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "pagamentos")
@@ -50,6 +51,8 @@ public class Pagamento {
     @NotNull
     private Long    formaDePagamentoId;
 
+    @Transient
+    private List<ItemDoPedido> itens;
 
     public Pagamento() {
     }
@@ -157,6 +160,14 @@ public class Pagamento {
 
     public void setFormaDePagamentoId(Long formaDePagamentoId) {
         this.formaDePagamentoId = formaDePagamentoId;
+    }
+
+    public List<ItemDoPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItemDoPedido> itens) {
+        this.itens = itens;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package br.com.alurafood.pagamentos.service;
 
 import br.com.alurafood.pagamentos.dto.PagamentoDto;
+import br.com.alurafood.pagamentos.http.PedidoClient;
 import br.com.alurafood.pagamentos.model.Pagamento;
 import br.com.alurafood.pagamentos.model.StatusPagamento;
 import br.com.alurafood.pagamentos.repository.PagamentoRepository;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,6 +20,9 @@ public class PagamentoService {
 
     @Autowired
     private PagamentoRepository repository;
+
+    @Autowired
+    private PedidoClient pedido;
 
 //    @Autowired
 //    private ModelMapper modelMapper;
@@ -31,6 +36,7 @@ public class PagamentoService {
     public PagamentoDto obterPorId(Long id) {
         Pagamento pagamento = repository.findById(id).orElseThrow(() -> new EntityNotFoundException());
 //        return modelMapper.map(pagamento, PagamentoDto.class);
+        pagamento.setItens(pedido.obterItensDoPedido(pagamento.getPedidoId()).getItens());
         return new PagamentoDto(pagamento);
     }
 
@@ -56,5 +62,29 @@ public class PagamentoService {
 
     public void excluirPagamento(Long id) {
         repository.deleteById(id);
+    }
+
+    public void confirmarPagamento(Long id) {
+        Optional<Pagamento> pagamento = repository.findById(id);
+
+        if (pagamento.isEmpty()) {
+            throw new EntityNotFoundException();
+        }
+
+        pagamento.get().setStatus(StatusPagamento.CONFIRMADO);
+        repository.save(pagamento.get());
+        pedido.atualizaPagamento(pagamento.get().getPedidoId());
+    }
+
+    public void alteraStatus(Long id) {
+
+        Optional<Pagamento> pagamento = repository.findById(id);
+
+        if (pagamento.isEmpty()) {
+            throw new EntityNotFoundException();
+        }
+
+        pagamento.get().setStatus(StatusPagamento.CONFIRMADO_SEM_INTEGRACAO);
+        repository.save(pagamento.get());
     }
 }
