@@ -51,7 +51,11 @@ public class PagamentoController {
         PagamentoDto pagamento = service.criarPagamento(dto);
         URI endereco = uriBuilder.path("/pagamentos/{id}").buildAndExpand(pagamento.id()).toUri();
 
-        rabbitTemplate.convertAndSend("pagamento.concluido", pagamento);
+        // fila simples
+//        rabbitTemplate.convertAndSend("pagamento.concluido", pagamento);
+
+        // exchange
+        rabbitTemplate.convertAndSend("pagamentos.exchange","", pagamento);
 
         return ResponseEntity.created(endereco).body(pagamento);
     }

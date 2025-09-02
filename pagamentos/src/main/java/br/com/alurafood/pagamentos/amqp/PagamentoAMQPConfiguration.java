@@ -1,6 +1,7 @@
 package br.com.alurafood.pagamentos.amqp;
 
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.FanoutExchange;
+//import org.springframework.amqp.core.Queue;
 //import org.springframework.amqp.core.QueueBuilder;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
@@ -14,12 +15,21 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class PagamentoAMQPConfiguration {
 
+    /*
+    // criação de uma fila no RabbitMQ, foi substituído por exchange
     @Bean
     public Queue criaFila() {
         return new Queue("pagamento.concluido", false);
 
 //        return alternativo, faz a mesma coisa
 //        return QueueBuilder.nonDurable("pagamento.concluido").build();
+    }
+     */
+
+    @Bean
+    public FanoutExchange fanoutExchange() {
+//        return new FanoutExchange("pagamentos.ex");
+        return new FanoutExchange("pagamentos.exchange");
     }
 
     @Bean

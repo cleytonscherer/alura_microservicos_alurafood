@@ -1,4 +1,4 @@
-package br.com.alurafood.pedidos.amqp;
+package br.com.alurafood.avaliacao.amqp;
 
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -11,35 +11,39 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class PedidoAMQPConfiguration {
-
+public class AvaliacaoAMQPConfiguration {
     @Bean
-    public Jackson2JsonMessageConverter messageConverter() {
-        return new Jackson2JsonMessageConverter();
+    public Jackson2JsonMessageConverter messageConverter(){
+        return  new Jackson2JsonMessageConverter();
     }
 
     @Bean
     public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory,
-                                         Jackson2JsonMessageConverter messageConverter) {
+                                         Jackson2JsonMessageConverter messageConverter){
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setMessageConverter(messageConverter);
-        return rabbitTemplate;
+        return  rabbitTemplate;
     }
 
     @Bean
-    public Queue filaDetalhesPedido() {
-        return QueueBuilder.nonDurable("pagamentos.detalhes-pedido").build();
+    public Queue filaDetalhesAvaliacao() {
+        return QueueBuilder
+                .nonDurable("pagamentos.detalhes-avaliacao")
+                .build();
     }
 
     @Bean
     public FanoutExchange fanoutExchange() {
-//        return ExchangeBuilder.fanoutExchange("pagamentos.ex").build();
-        return ExchangeBuilder.fanoutExchange("pagamentos.exchange").build();
+        return ExchangeBuilder
+                .fanoutExchange("pagamentos.exchange")
+                .build();
     }
 
     @Bean
-    public Binding bindingPagamentoPedido(FanoutExchange fanoutExchange) {
-        return BindingBuilder.bind(filaDetalhesPedido()).to(fanoutExchange);
+    public Binding bindPagamentoPedido(FanoutExchange fanoutExchange) {
+        return BindingBuilder
+                .bind(filaDetalhesAvaliacao())
+                .to(fanoutExchange());
     }
 
     @Bean
@@ -51,4 +55,5 @@ public class PedidoAMQPConfiguration {
     public ApplicationListener<ApplicationReadyEvent> inicializaAdmin(RabbitAdmin rabbitAdmin) {
         return event -> rabbitAdmin.initialize();
     }
+
 }
